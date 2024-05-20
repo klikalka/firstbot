@@ -1,8 +1,13 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
 
+
+
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
+
+from keyboard.keyboards import  get_keyboard1, get_keyboard2
+
 
 async def set_commands(bot: Bot):
     commands = [
@@ -17,8 +22,39 @@ async def set_commands(bot: Bot):
 
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    await message.answer('привет, я неформал')
+    await message.answer('привет, я неформал', reply_markup= get_keyboard1())
 
+@dp.message_handler(lambda message: message.text == 'Отправь злого кота')
+async def button_1_click(message: types.Message):
+    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/01/60/09/016009b63930c8862755f9fa6e3bf511.jpg', caption='я хочу домой')
+
+@dp.message_handler(lambda message: message.text == 'Отправь шутку')
+async def button_2_click(message: types.Message):
+    await message.answer('Я не клоун')
+
+@dp.message_handler(lambda message: message.text == 'Ыъыъы')
+async def button_3_click(message: types.Message):
+    await message.answer('ъуъуъуъ')
+
+@dp.message_handler(lambda message: message.text == '>>')
+async def button_4_click(message: types.Message):
+    await message.answer('>>', reply_markup=get_keyboard2())
+
+@dp.message_handler(lambda message: message.text == 'Отправь злого пса')
+async def button_5_click(message: types.Message):
+    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/03/1c/4b/031c4b2665938050584f83db949e8dc6.jpg')
+
+@dp.message_handler(lambda message: message.text == 'Отправь злого хомяка')
+async def button_6_click(message: types.Message):
+    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/47/ce/f2/47cef2d8c4866bb7bc90f0ccd1aa5d13.jpg')
+
+@dp.message_handler(lambda message: message.text == 'Отправь...')
+async def button_7_click(message: types.Message):
+    await message.reply('Что за зоопарк вы тут развели?')
+
+@dp.message_handler(lambda message: message.text == '<<')
+async def button_8_click(message: types.Message):
+    await message.answer('<<', reply_markup=get_keyboard1())
 
 @dp.message_handler(commands='help')
 async def start(message: types.Message):
