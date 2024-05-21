@@ -1,12 +1,11 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
-
+from keyboard.keyboards import  get_keyboard1, get_keyboard2
+from keyboard.key_inline import get_keyboard_inline, get_key_inline2
 
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
-
-from keyboard.keyboards import  get_keyboard1, get_keyboard2
 
 
 async def set_commands(bot: Bot):
@@ -26,7 +25,7 @@ async def start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Отправь злого кота')
 async def button_1_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/01/60/09/016009b63930c8862755f9fa6e3bf511.jpg', caption='я хочу домой')
+    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/01/60/09/016009b63930c8862755f9fa6e3bf511.jpg', caption='я хочу домой', reply_markup=get_keyboard_inline())
 
 @dp.message_handler(lambda message: message.text == 'Отправь шутку')
 async def button_2_click(message: types.Message):
@@ -46,7 +45,7 @@ async def button_5_click(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Отправь злого хомяка')
 async def button_6_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/47/ce/f2/47cef2d8c4866bb7bc90f0ccd1aa5d13.jpg')
+    await bot.send_photo(message.chat.id, photo='https://i.pinimg.com/736x/47/ce/f2/47cef2d8c4866bb7bc90f0ccd1aa5d13.jpg', caption='Мы вам рекомендуем ознакомиться со статьями ниже', reply_markup=get_key_inline2())
 
 @dp.message_handler(lambda message: message.text == 'Отправь...')
 async def button_7_click(message: types.Message):
